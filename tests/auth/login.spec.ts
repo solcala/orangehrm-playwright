@@ -11,29 +11,54 @@ test.describe('Login', { tag: '@auth' }, () => {
   });
 
   test('admin can log in with valid credentials @smoke', async ({ loginPage, dashboardPage }) => {
-    await loginPage.login(adminUser.username, adminUser.password);
-    await dashboardPage.expectLoaded();
+    await test.step('Submit valid admin credentials', async () => {
+      await loginPage.login(adminUser.username, adminUser.password);
+    });
+
+    await test.step('Dashboard is shown', async () => {
+      await dashboardPage.expectLoaded();
+    });
   });
 
   test('user sees an error for invalid credentials', async ({ loginPage, page }) => {
-    await loginPage.login(adminUser.username, 'wrong-password');
-    await expect(loginPage.errorAlert).toContainText('Invalid credentials');
-    await expect(page).toHaveURL(/\/auth\/login/);
+    await test.step('Submit a wrong password', async () => {
+      await loginPage.login(adminUser.username, 'wrong-password');
+    });
+
+    await test.step('Error is shown and user stays on the login page', async () => {
+      // Independent checks of the same end state: soft, so one failure doesn't hide the other.
+      await expect.soft(loginPage.errorAlert).toContainText('Invalid credentials');
+      await expect.soft(page).toHaveURL(/\/auth\/login/);
+    });
   });
 
   test('user sees "Required" when submitting empty fields', async ({ loginPage }) => {
-    await loginPage.loginButton.click();
-    await expect(loginPage.requiredMessageFor(loginPage.usernameInput)).toBeVisible();
-    await expect(loginPage.requiredMessageFor(loginPage.passwordInput)).toBeVisible();
+    await test.step('Submit the form with both fields empty', async () => {
+      await loginPage.loginButton.click();
+    });
+
+    await test.step('Both fields show a "Required" message', async () => {
+      await expect.soft(loginPage.requiredMessageFor(loginPage.usernameInput)).toBeVisible();
+      await expect.soft(loginPage.requiredMessageFor(loginPage.passwordInput)).toBeVisible();
+    });
   });
 
   // Logs in with its own session — logging out of the shared storageState
   // session would invalidate it for every other test.
   test('user can log out', async ({ loginPage, dashboardPage, page }) => {
-    await loginPage.login(adminUser.username, adminUser.password);
-    await dashboardPage.expectLoaded();
-    await dashboardPage.logout();
-    await expect(page).toHaveURL(/\/auth\/login/);
-    await loginPage.expectLoaded();
+    // Each step depends on the previous one, so these assertions are hard (not soft).
+    await test.step('Log in as admin', async () => {
+      await loginPage.login(adminUser.username, adminUser.password);
+      await dashboardPage.expectLoaded();
+    });
+
+    await test.step('Log out from the user menu', async () => {
+      await dashboardPage.logout();
+    });
+
+    await test.step('Login page is shown again', async () => {
+      await expect(page).toHaveURL(/\/auth\/login/);
+      await loginPage.expectLoaded();
+    });
   });
 });
