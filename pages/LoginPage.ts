@@ -34,6 +34,9 @@ export class LoginPage extends BasePage {
 
   /** Inline "Required" message shown under an empty field. */
   requiredMessageFor(field: Locator): Locator {
-    return field.locator('xpath=ancestor::div[contains(@class,"oxd-input-group")]').getByText('Required');
+    // Last resort, CSS (verified on the live app): the message <span> has no role, and neither it nor the <label> is
+    // linked to the input (no aria-describedby / for), so no role or label locator can reach it. We scope to the
+    // stable OXD form-group component that contains this field.
+    return this.page.locator('.oxd-input-group').filter({ has: field }).getByText('Required', { exact: true });
   }
 }

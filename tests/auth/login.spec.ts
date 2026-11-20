@@ -27,8 +27,8 @@ test.describe('Login', { tag: '@auth' }, () => {
 
     await test.step('Error is shown and user stays on the login page', async () => {
       // Independent checks of the same end state: soft, so one failure doesn't hide the other.
-      await expect.soft(loginPage.errorAlert).toContainText('Invalid credentials');
-      await expect.soft(page).toHaveURL(/\/auth\/login/);
+      await expect.soft(loginPage.errorAlert, 'Error alert says "Invalid credentials"').toContainText('Invalid credentials');
+      await expect.soft(page, 'User stays on the login page').toHaveURL(/\/auth\/login/);
     });
   });
 
@@ -38,8 +38,8 @@ test.describe('Login', { tag: '@auth' }, () => {
     });
 
     await test.step('Both fields show a "Required" message', async () => {
-      await expect.soft(loginPage.requiredMessageFor(loginPage.usernameInput)).toBeVisible();
-      await expect.soft(loginPage.requiredMessageFor(loginPage.passwordInput)).toBeVisible();
+      await expect.soft(loginPage.requiredMessageFor(loginPage.usernameInput), 'Username shows "Required"').toBeVisible();
+      await expect.soft(loginPage.requiredMessageFor(loginPage.passwordInput), 'Password shows "Required"').toBeVisible();
     });
   });
 
@@ -47,7 +47,7 @@ test.describe('Login', { tag: '@auth' }, () => {
   // session would invalidate it for every other test.
   test('user can log out', async ({ loginPage, dashboardPage, page }) => {
     // Each step depends on the previous one, so these assertions are hard (not soft).
-    await test.step('Log in as admin', async () => {
+    await test.step('Log in as admin and reach the dashboard', async () => {
       await loginPage.login(adminUser.username, adminUser.password);
       await dashboardPage.expectLoaded();
     });

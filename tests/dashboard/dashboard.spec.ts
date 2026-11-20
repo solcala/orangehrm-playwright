@@ -17,8 +17,8 @@ test.describe('Dashboard', { tag: '@dashboard' }, () => {
 
     await test.step(`Sidebar lists: ${modules.join(', ')}`, async () => {
       // Soft: report every missing module in one run, not only the first.
-      for (const module of modules) {
-        await expect.soft(dashboardPage.menuItem(module), `"${module}" is in the sidebar`).toBeVisible();
+      for (const name of modules) {
+        await expect.soft(dashboardPage.menuItem(name), `"${name}" is in the sidebar`).toBeVisible();
       }
     });
   });
