@@ -1,0 +1,44 @@
+# OrangeHRM — Playwright + TypeScript
+
+End-to-end tests for the [OrangeHRM demo](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
+
+## Setup
+
+```bash
+npm install
+npx playwright install        # browsers
+cp .env.example .env          # credentials / base URL
+```
+
+## Running
+
+| Command | What it does |
+| --- | --- |
+| `npm test` | All tests, all browsers |
+| `npm run test:chromium` | Chromium only |
+| `npm run test:smoke` | Tests tagged `@smoke` |
+| `npm run test:headed` | Watch the browser |
+| `npm run test:ui` | Playwright UI mode |
+| `npm run report` | Open the last HTML report |
+| `npm run codegen` | Record actions against the login page |
+| `npm run typecheck` | TypeScript check |
+
+## Layout
+
+```
+pages/            Page Objects (BasePage, LoginPage, DashboardPage)
+fixtures/         Custom `test` with page-object fixtures; test data
+tests/
+  auth.setup.ts   Logs in once, saves session to playwright/.auth/admin.json
+  auth/           Login/logout tests (run logged out)
+  dashboard/      Tests that reuse the saved admin session
+playwright.config.ts
+```
+
+## Conventions
+
+- Import `test`/`expect` from `@fixtures/pages`, not `@playwright/test`.
+- Prefer `getByRole` / `getByPlaceholder` / `getByText` locators; keep them in page objects.
+- Tests reuse the admin session by default. For a logged-out test, add
+  `test.use({ storageState: { cookies: [], origins: [] } })`.
+- Never log out of the shared session in a test — it invalidates it for parallel tests.

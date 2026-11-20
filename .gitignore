@@ -1,0 +1,20 @@
+# Private local docs (not committed)
+LEARNING_BACKLOG.md
+PROJECT_PLAN.md
+TEST_STRATEGY.md
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# OS
+.DS_Store
