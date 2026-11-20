@@ -1,10 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
+import { STORAGE_STATE } from './fixtures/constants';
 
 dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
-
-export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/admin.json');
 
 export default defineConfig({
   testDir: './tests',

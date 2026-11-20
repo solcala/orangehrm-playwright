@@ -1,6 +1,6 @@
 import { test as setup } from '@fixtures/pages';
 import { adminUser } from '@fixtures/test-data';
-import { STORAGE_STATE } from '../playwright.config';
+import { STORAGE_STATE } from '@fixtures/constants';
 
 setup('authenticate as admin', async ({ loginPage, dashboardPage, page }) => {
   await loginPage.goto();

@@ -34,9 +34,10 @@ export class LoginPage extends BasePage {
 
   /** Inline "Required" message shown under an empty field. */
   requiredMessageFor(field: Locator): Locator {
-    // Last resort, CSS (verified on the live app): the message <span> has no role, and neither it nor the <label> is
-    // linked to the input (no aria-describedby / for), so no role or label locator can reach it. We scope to the
-    // stable OXD form-group component that contains this field.
+    // Last resort (verified on the live app): the "Required" <span> has no role, and neither it nor the <label> is
+    // linked to the input (no aria-describedby / for), so no role, label or text locator can tell the two fields'
+    // messages apart. `.oxd-input-group` is the OXD form-group *component* wrapper (structure, not styling); we
+    // filter it by the field's own locator. Revisit if OrangeHRM adds aria links or test ids.
     return this.page.locator('.oxd-input-group').filter({ has: field }).getByText('Required', { exact: true });
   }
 }
