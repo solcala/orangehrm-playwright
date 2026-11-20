@@ -6,16 +6,17 @@ End-to-end tests for the [OrangeHRM demo](https://opensource-demo.orangehrmlive.
 
 ```bash
 npm install
-npx playwright install        # browsers
-cp .env.example .env          # credentials / base URL
+npx playwright install chromium webkit   # browsers
+cp .env.example .env                     # credentials / base URL
 ```
 
 ## Running
 
 | Command | What it does |
 | --- | --- |
-| `npm test` | All tests, all browsers |
-| `npm run test:chromium` | Chromium only |
+| `npm test` | All tests, Chromium (Chrome) + WebKit (Safari) |
+| `npm run test:chromium` | Chromium (Chrome) only |
+| `npm run test:webkit` | WebKit (Safari) only |
 | `npm run test:smoke` | Tests tagged `@smoke` |
 | `npm run test:headed` | Watch the browser |
 | `npm run test:ui` | Playwright UI mode |
