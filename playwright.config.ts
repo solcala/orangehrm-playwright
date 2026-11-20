@@ -29,14 +29,11 @@ export default defineConfig({
     // Logs in once and saves the session to STORAGE_STATE.
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
 
+    // Chromium + WebKit only; Firefox dropped to keep runs fast. These are Playwright's own browser builds with
+    // Desktop Chrome/Safari device presets (viewport, user agent), not the branded Chrome or Safari browsers.
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], storageState: STORAGE_STATE },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'], storageState: STORAGE_STATE },
       dependencies: ['setup'],
     },
     {
