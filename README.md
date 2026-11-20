@@ -14,9 +14,9 @@ cp .env.example .env                     # credentials / base URL
 
 | Command | What it does |
 | --- | --- |
-| `npm test` | All tests, Chromium (Chrome) + WebKit (Safari) |
-| `npm run test:chromium` | Chromium (Chrome) only |
-| `npm run test:webkit` | WebKit (Safari) only |
+| `npm test` | All tests on Playwright's Chromium and WebKit builds |
+| `npm run test:chromium` | Chromium only |
+| `npm run test:webkit` | WebKit only |
 | `npm run test:smoke` | Tests tagged `@smoke` |
 | `npm run test:headed` | Watch the browser |
 | `npm run test:ui` | Playwright UI mode |
