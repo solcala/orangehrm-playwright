@@ -13,7 +13,9 @@ export class DashboardPage extends BasePage {
     super(page);
     this.heading = page.getByRole('heading', { name: 'Dashboard' });
     this.sidebar = page.getByRole('navigation', { name: 'Sidepanel' });
-    this.userDropdown = page.locator('.oxd-userdropdown-tab');
+    // The dropdown trigger is a plain <span> with no role or name, and the displayed user name is random
+    // demo data, so we anchor on the profile picture's accessible name, scoped to the top bar.
+    this.userDropdown = page.getByRole('banner').getByRole('img', { name: 'profile picture', exact: true });
     this.logoutMenuItem = page.getByRole('menuitem', { name: 'Logout' });
   }
 
