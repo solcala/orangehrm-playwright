@@ -16,5 +16,10 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
+# Claude Code / MCP (local only)
+.claude/settings.local.json
+.claude/worktrees/
+.playwright-mcp/
+
 # OS
 .DS_Store

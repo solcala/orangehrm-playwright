@@ -12,12 +12,14 @@
     "report": "playwright show-report",
     "codegen": "playwright codegen https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
     "typecheck": "tsc --noEmit",
-    "test:webkit": "playwright test --project=webkit"
+    "test:webkit": "playwright test --project=webkit",
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#**/node_modules\" \"#.claude/worktrees\" \"#playwright-report\" \"#test-results\" \"#blob-report\" \"#.playwright-mcp\" \"#PROJECT_PLAN.md\" \"#TEST_STRATEGY.md\" \"#LEARNING_BACKLOG.md\""
   },
   "devDependencies": {
     "@playwright/test": "1.65.1",
     "@types/node": "^26.6.6",
     "dotenv": "^18.0.10",
+    "markdownlint-cli2": "0.24.2",
     "typescript": "^7.0.2"
   }
 }

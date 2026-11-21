@@ -1,0 +1,9 @@
+// Shared by `npm run lint:md` (markdownlint-cli2) and the VS Code markdownlint extension,
+// so the Problems tab and the CLI report the same issues.
+{
+  "default": true,
+  // 120 matches our code width; long tables and code samples are fine.
+  "MD013": { "line_length": 120, "tables": false, "code_blocks": false },
+  // Allow the same heading text under different parents (e.g. "Blocking" in report templates).
+  "MD024": { "siblings_only": true }
+}
