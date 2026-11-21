@@ -18,6 +18,7 @@ node_modules/
 
 # Claude Code / MCP (local only)
 .claude/settings.local.json
+.claude/worktrees/
 .playwright-mcp/
 
 # OS
