@@ -43,8 +43,8 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
   conventional commits.
 - Before pushing or opening a PR, rebase on the latest `main` (`git fetch && git rebase origin/main`).
 - Before every PR, run the **`code-reviewer`** agent (`.claude/agents/code-reviewer.md`) and fix blocking findings.
-- CodeRabbit is paused: don't trigger it. To get an AI review on a PR, comment `@coderabbitai review` (it doesn't
-  run automatically on this repo). Its rules are in `.coderabbit.yaml`.
+- After opening a PR, comment `@coderabbitai review`. CodeRabbit doesn't run automatically on this repo.
+  Its rules are in `.coderabbit.yaml`.
 - `@playwright/test` is pinned to an exact version. Once CI is added, it must match the CI Docker image tag; bump both
   together.
 
