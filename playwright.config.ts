@@ -10,7 +10,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Omit `workers` locally so Playwright uses its default (exactOptionalPropertyTypes forbids `undefined`).
+  ...(process.env.CI ? { workers: 1 } : {}),
   // The public demo can be slow — give it some headroom.
   timeout: 60_000,
   expect: { timeout: 10_000 },
