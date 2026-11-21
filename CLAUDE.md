@@ -1,7 +1,7 @@
 # OrangeHRM — Playwright automation & AI-driven testing
 
 Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
-(https://opensource-demo.orangehrmlive.com). Browsers: Playwright's **Chromium** and **WebKit** builds.
+(<https://opensource-demo.orangehrmlive.com>). Browsers: Playwright's **Chromium** and **WebKit** builds.
 
 ## Commands
 
@@ -11,6 +11,7 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 | `npm run test:smoke`                            | `@smoke` tests only                     |
 | `npm run test:chromium` / `npm run test:webkit` | One browser                             |
 | `npm run typecheck`                             | `tsc --noEmit`; run before every commit |
+| `npm run lint:md`                               | Markdown lint; run before every commit  |
 | `npm run report`                                | Open the last HTML report               |
 
 ## Layout
@@ -36,13 +37,16 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 
 ## Workflow
 
+- **Before every commit: no errors in VS Code's Problems tab.** Run `npm run typecheck` and `npm run lint:md`
+  (ESLint joins later); both must pass. `.markdownlint.jsonc` is shared by the CLI and the VS Code extension.
 - Never commit to `main`. Use one small branch per change (`chore/ ci/ docs/ feature/<section> fix/`) and
   conventional commits.
 - Before pushing or opening a PR, rebase on the latest `main` (`git fetch && git rebase origin/main`).
 - Before every PR, run the **`code-reviewer`** agent (`.claude/agents/code-reviewer.md`) and fix blocking findings.
 - After opening a PR, comment `@coderabbitai review`. CodeRabbit doesn't run automatically on this repo.
   Its rules are in `.coderabbit.yaml`.
-- `@playwright/test` is pinned to an exact version that must match the CI Docker image tag. Bump both together.
+- `@playwright/test` is pinned to an exact version. Once CI is added, it must match the CI Docker image tag; bump both
+  together.
 
 ## MCP servers (`.mcp.json`)
 
@@ -54,3 +58,6 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 | `github`          | PRs, issues, and GitHub Actions runs. Needs `GITHUB_PERSONAL_ACCESS_TOKEN` (see `.env.example`).                                     |
 
 Never write secrets into `.mcp.json`: use `${VAR}` expansion and document the variable in `.env.example`.
+
+If the `github` server fails with "Authorization header is badly formatted", `GITHUB_PERSONAL_ACCESS_TOKEN` isn't set
+in the shell Claude was started from. Export it (see `.env.example`) and restart Claude. The other servers don't need it.

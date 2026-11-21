@@ -26,7 +26,7 @@ cp .env.example .env                     # credentials / base URL
 
 ## Layout
 
-```
+```text
 pages/            Page Objects (BasePage, LoginPage, DashboardPage)
 fixtures/         Custom `test` with page-object fixtures; test data
 tests/
