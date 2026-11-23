@@ -59,7 +59,7 @@ test.describe('Login', { tag: '@auth' }, () => {
     });
 
     await test.step('Log out from the user menu', async () => {
-      await dashboardPage.logout();
+      await dashboardPage.topBar.logout();
     });
 
     await test.step('Login page is shown again', async () => {
