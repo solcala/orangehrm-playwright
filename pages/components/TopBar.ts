@@ -11,7 +11,8 @@ export class TopBar {
     // The dropdown trigger is a plain <span> with no role or name, and the displayed user name is random
     // demo data, so we anchor on the profile picture's accessible name, scoped to the top bar.
     this.userDropdown = this.root.getByRole('img', { name: 'profile picture', exact: true });
-    this.logoutMenuItem = this.root.getByRole('menuitem', { name: 'Logout' });
+    // Verified on the live app: the OXD user menu renders inside <header>, not teleported to <body>.
+    this.logoutMenuItem = this.root.getByRole('menuitem', { name: 'Logout', exact: true });
   }
 
   async logout(): Promise<void> {
