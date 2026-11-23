@@ -32,6 +32,8 @@ jobs:
     timeout-minutes: 30
     env:
       CI: true
+      # Skip installing Husky git hooks on `npm ci`; CI runs the same checks as explicit steps.
+      HUSKY: '0'
       # Recommended by Playwright for root containers (needed by Firefox; harmless for Chromium/WebKit).
       HOME: /root
       # Optional override via a repository variable; falls back to the public demo.
@@ -44,6 +46,12 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Lint markdown
         run: npm run lint:md

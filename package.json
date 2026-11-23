@@ -13,13 +13,32 @@
     "codegen": "playwright codegen https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
     "typecheck": "tsc --noEmit",
     "test:webkit": "playwright test --project=webkit",
-    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#**/node_modules\" \"#.claude/worktrees\" \"#playwright-report\" \"#test-results\" \"#blob-report\" \"#.playwright-mcp\" \"#PROJECT_PLAN.md\" \"#TEST_STRATEGY.md\" \"#LEARNING_BACKLOG.md\""
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#**/node_modules\" \"#.claude/worktrees\" \"#playwright-report\" \"#test-results\" \"#blob-report\" \"#.playwright-mcp\" \"#PROJECT_PLAN.md\" \"#TEST_STRATEGY.md\" \"#LEARNING_BACKLOG.md\"",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "1.65.1",
     "@types/node": "^26.6.6",
     "dotenv": "^18.0.10",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.12.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.2",
     "markdownlint-cli2": "0.24.2",
-    "typescript": "^7.0.2"
+    "prettier": "^3.10.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.73.0"
+  },
+  "lint-staged": {
+    "*.{ts,js,mjs,cjs}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
+    ],
+    "*.{json,jsonc,yml,yaml}": "prettier --write"
   }
 }

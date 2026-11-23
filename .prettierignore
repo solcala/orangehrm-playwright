@@ -1,0 +1,16 @@
+# Generated output
+playwright-report/
+test-results/
+blob-report/
+playwright/.auth/
+playwright/.cache/
+.playwright-mcp/
+
+# npm owns the lockfile format
+package-lock.json
+
+# Markdown is covered by markdownlint (npm run lint:md)
+*.md
+
+# Claude Code local files and worktrees
+.claude/
