@@ -22,6 +22,9 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+      # Lets deploy-report skip runs that produced no report (e.g. typecheck failed).
+      report-uploaded: ${{ steps.pages-upload.outcome == 'success' }}
     # Keep the image tag in sync with the exact @playwright/test version in package.json.
     # Browsers and Node are preinstalled, so there is no `playwright install` or setup-node step.
     container:
@@ -66,6 +69,7 @@ jobs:
 
       # main only (push, nightly, manual): the report becomes the GitHub Pages site. PR runs keep the artifact only.
       - name: Upload report for GitHub Pages
+        id: pages-upload
         uses: actions/upload-pages-artifact@v5
         if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && hashFiles('playwright-report/index.html') != '' }}
         with:
@@ -75,13 +79,14 @@ jobs:
   # Needs Settings → Pages → Source: "GitHub Actions".
   deploy-report:
     needs: test
-    if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+    if: ${{ !cancelled() && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.test.outputs.report-uploaded == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       pages: write
       id-token: write
     # One deploy at a time; a newer report waits instead of cancelling the one being published.
+    # Order isn't guaranteed: if two main runs overlap, an older report can briefly replace a newer one. Fine here.
     concurrency:
       group: pages
       cancel-in-progress: false

@@ -4,7 +4,8 @@
 
 End-to-end tests for the [OrangeHRM demo](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
 
-**Latest test report (main):** <https://solcala.github.io/orangehrm-playwright/>, published by CI after every run on `main`.
+**Latest test report (main):** <https://solcala.github.io/orangehrm-playwright/>, published by CI after each run on
+`main` that produces a report.
 
 ## Setup
 
