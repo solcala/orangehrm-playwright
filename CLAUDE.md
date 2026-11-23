@@ -5,14 +5,16 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 
 ## Commands
 
-| Command                                         | What it does                            |
-| ----------------------------------------------- | --------------------------------------- |
-| `npm test`                                      | Full suite (Chromium + WebKit)          |
-| `npm run test:smoke`                            | `@smoke` tests only                     |
-| `npm run test:chromium` / `npm run test:webkit` | One browser                             |
-| `npm run typecheck`                             | `tsc --noEmit`; run before every commit |
-| `npm run lint:md`                               | Markdown lint; run before every commit  |
-| `npm run report`                                | Open the last HTML report               |
+| Command                                         | What it does                                   |
+| ----------------------------------------------- | ---------------------------------------------- |
+| `npm test`                                      | Full suite (Chromium + WebKit)                 |
+| `npm run test:smoke`                            | `@smoke` tests only                            |
+| `npm run test:chromium` / `npm run test:webkit` | One browser                                    |
+| `npm run typecheck`                             | `tsc --noEmit`; run before every commit        |
+| `npm run lint`                                  | ESLint (type-checked); run before every commit |
+| `npm run lint:md`                               | Markdown lint; run before every commit         |
+| `npm run format` / `npm run format:check`       | Prettier: write / check only                   |
+| `npm run report`                                | Open the last HTML report                      |
 
 ## Layout
 
@@ -37,8 +39,10 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 
 ## Workflow
 
-- **Before every commit: no errors in VS Code's Problems tab.** Run `npm run typecheck` and `npm run lint:md`
-  (ESLint joins later); both must pass. `.markdownlint.jsonc` is shared by the CLI and the VS Code extension.
+- **Before every commit: no errors in VS Code's Problems tab.** Run `npm run typecheck`, `npm run lint` and
+  `npm run lint:md`; all must pass. `.markdownlint.jsonc` is shared by the CLI and the VS Code extension.
+- Husky hooks run automatically: pre-commit = ESLint `--fix` + Prettier on staged files (lint-staged); pre-push =
+  typecheck + ESLint + `@smoke` on Chromium. Don't bypass them with `--no-verify`.
 - Never commit to `main`. Use one small branch per change (`chore/ ci/ docs/ feature/<section> fix/`) and
   conventional commits.
 - Before pushing or opening a PR, rebase on the latest `main` (`git fetch && git rebase origin/main`).

@@ -2,7 +2,7 @@
 reviews:
   profile: chill
   path_instructions:
-    - path: "tests/**/*.spec.ts"
+    - path: 'tests/**/*.spec.ts'
       instructions: >-
         Playwright + TypeScript E2E specs for the OrangeHRM demo. Check:
         import test/expect from '@fixtures/pages', never '@playwright/test'.
@@ -19,14 +19,14 @@ reviews:
         never rely on existing demo records or counts, apart from the Admin user and reference lists
         (job titles, locations) read from the app.
         Never log out of the shared storageState session; logged-out tests opt out with an empty storageState.
-    - path: "tests/**/*.setup.ts"
+    - path: 'tests/**/*.setup.ts'
       instructions: >-
         Setup projects (e.g. auth.setup.ts creates the shared admin session every test depends on). Check:
         imports come from '@fixtures/pages'; credentials come from '@fixtures/test-data' (env with public demo
         defaults) and are never hard-coded; the session is saved to STORAGE_STATE from '@fixtures/constants'
         (never import playwright.config.ts); login success is asserted before saving the session.
         Spec-only rules (test.step structure, section tags, data cleanup) do not apply here.
-    - path: "pages/**/*.ts"
+    - path: 'pages/**/*.ts'
       instructions: >-
         Page objects. Check: locators are user-facing first: getByRole with name, then getByLabel,
         getByPlaceholder, alt text, getByTitle, getByText (stable static text only, never demo data such as
@@ -38,17 +38,17 @@ reviews:
         Page objects contain locators and actions only, with no assertions apart from expectLoaded()-style helpers.
         Reusable flows may wrap their body in test.step(title, body, { box: true }).
         Shared UI (sidebar, top bar, dropdowns, date pickers, tables) belongs in reusable components.
-    - path: "fixtures/**/*.ts"
+    - path: 'fixtures/**/*.ts'
       instructions: >-
         Fixtures, constants and test data. Check: no secrets or real credentials (only public demo defaults
         read from env); no side effects at import time; generated test data is unique (pw- prefix) and has a
         cleanup path. Fixture helpers may use test.step(..., { box: true }).
-    - path: ".github/workflows/**"
+    - path: '.github/workflows/**'
       instructions: >-
         CI workflows. Check: the mcr.microsoft.com/playwright image tag matches the exact @playwright/test
         version in package.json; reports and traces are uploaded even when tests fail; no secrets are echoed;
         concurrency cancels superseded runs.
-    - path: "{playwright.config.ts,package.json,tsconfig.json}"
+    - path: '{playwright.config.ts,package.json,tsconfig.json}'
       instructions: >-
         Project config. Check: @playwright/test is pinned to an exact version; projects are Chromium and WebKit
         only; tests must not import playwright.config.ts (shared constants live in fixtures/constants.ts);

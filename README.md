@@ -28,9 +28,15 @@ cp .env.example .env                     # credentials / base URL
 | `npm run report` | Open the last HTML report |
 | `npm run codegen` | Record actions against the login page |
 | `npm run typecheck` | TypeScript check |
+| `npm run lint` | ESLint (typescript-eslint strict, type-checked + Playwright rules) |
+| `npm run lint:md` | Markdown lint |
+| `npm run format` / `npm run format:check` | Prettier: format files / check only |
 
-CI runs typecheck, markdown lint and the full suite in the official Playwright Docker image on every PR,
-push to `main`, nightly and on demand.
+`npm install` also sets up Husky git hooks: **pre-commit** runs ESLint `--fix` and Prettier on staged files;
+**pre-push** runs typecheck, ESLint and the `@smoke` tests on Chromium.
+
+CI runs typecheck, ESLint, the Prettier check, markdown lint and the full suite in the official Playwright Docker
+image on every PR, push to `main`, nightly and on demand.
 
 ## Layout
 
