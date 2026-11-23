@@ -1,1 +1,1 @@
-npm run typecheck && npm run lint && npx playwright test --grep @smoke --project=chromium
+npm run typecheck && npm run lint && npm run test:smoke -- --project=chromium

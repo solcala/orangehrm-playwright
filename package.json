@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "test:webkit": "playwright test --project=webkit",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#**/node_modules\" \"#.claude/worktrees\" \"#playwright-report\" \"#test-results\" \"#blob-report\" \"#.playwright-mcp\" \"#PROJECT_PLAN.md\" \"#TEST_STRATEGY.md\" \"#LEARNING_BACKLOG.md\"",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky"
@@ -31,14 +31,14 @@
     "lint-staged": "^17.6.2",
     "markdownlint-cli2": "0.24.2",
     "prettier": "^3.10.1",
-    "typescript": "^6.0.3",
+    "typescript": "~6.0.3",
     "typescript-eslint": "^8.73.0"
   },
   "lint-staged": {
     "*.{ts,js,mjs,cjs}": [
-      "eslint --fix",
+      "eslint --fix --max-warnings=0",
       "prettier --write"
     ],
-    "*.json": "prettier --write"
+    "*.{json,jsonc,yml,yaml}": "prettier --write"
   }
 }
