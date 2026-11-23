@@ -1,5 +1,7 @@
 # OrangeHRM — Playwright + TypeScript
 
+[![Playwright Tests](https://github.com/solcala/orangehrm-playwright/actions/workflows/playwright.yml/badge.svg)](https://github.com/solcala/orangehrm-playwright/actions/workflows/playwright.yml)
+
 End-to-end tests for the [OrangeHRM demo](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login).
 
 ## Setup
@@ -23,6 +25,9 @@ cp .env.example .env                     # credentials / base URL
 | `npm run report` | Open the last HTML report |
 | `npm run codegen` | Record actions against the login page |
 | `npm run typecheck` | TypeScript check |
+
+CI runs typecheck, markdown lint and the full suite in the official Playwright Docker image on every PR,
+push to `main`, nightly and on demand.
 
 ## Layout
 
