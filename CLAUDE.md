@@ -37,8 +37,8 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 - Tests are independent: self-created, unique test data with cleanup. Never log out of the shared session;
   logged-out tests use `test.use({ storageState: { cookies: [], origins: [] } })`.
 - **Test data:** build it with `@fixtures/factories` (`buildEmployee(faker)`, `buildUser(faker)`) using the `faker`
-  fixture; generated names and usernames start with `pw-`. To replay a failure's data, run it again with
-  `FAKER_SEED=<seed>` (the test's `faker-seed` annotation in the HTML report).
+  fixture; generated first names, employee IDs and usernames start with `pw-`. To replay a failure's data, run it
+  again with `FAKER_SEED=<seed>` (the test's `faker-seed` annotation in the HTML report).
 
 ## Workflow
 
