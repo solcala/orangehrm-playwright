@@ -13,7 +13,8 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 | `npm run typecheck`                             | `tsc --noEmit`; run before every commit        |
 | `npm run lint`                                  | ESLint (type-checked); run before every commit |
 | `npm run lint:md`                               | Markdown lint; run before every commit         |
-| `npm run format` / `npm run format:check`       | Prettier: write / check only                   |
+| `npm run format`                                | Prettier: rewrite files                        |
+| `npm run format:check`                          | Prettier: check only; run before every commit  |
 | `npm run report`                                | Open the last HTML report                      |
 
 ## Layout
@@ -39,16 +40,17 @@ Playwright + TypeScript end-to-end tests for the public OrangeHRM demo
 
 ## Workflow
 
-- **Before every commit: no errors in VS Code's Problems tab.** Run `npm run typecheck`, `npm run lint` and
-  `npm run lint:md`; all must pass. `.markdownlint.jsonc` is shared by the CLI and the VS Code extension.
-- Husky hooks run automatically: pre-commit = ESLint `--fix` + Prettier on staged files (lint-staged); pre-push =
-  typecheck + ESLint + `@smoke` on Chromium. Don't bypass them with `--no-verify`.
+- **Before every commit: no errors in VS Code's Problems tab.** `npm run typecheck`, `npm run lint`,
+  `npm run format:check` and `npm run lint:md` must all pass. `.markdownlint.jsonc` is shared by the CLI and the
+  VS Code extension.
+- Husky git hooks run automatically: on commit, lint-staged (ESLint `--fix` + Prettier on staged files); on push,
+  typecheck + lint + `@smoke` on Chromium. Don't bypass them with `--no-verify`.
 - Never commit to `main`. Use one small branch per change (`chore/ ci/ docs/ feature/<section> fix/`) and
   conventional commits.
 - Before pushing or opening a PR, rebase on the latest `main` (`git fetch && git rebase origin/main`).
 - Before every PR, run the **`code-reviewer`** agent (`.claude/agents/code-reviewer.md`) and fix blocking findings.
-- After opening a PR, comment `@coderabbitai review`. CodeRabbit doesn't run automatically on this repo.
-  Its rules are in `.coderabbit.yaml`.
+- CodeRabbit reviews are triggered from the checkbox on the PR (free plan limit), not automatically.
+  Its rules live in `.coderabbit.yaml`. When asked, Claude reads its review comments and addresses them.
 - `@playwright/test` is pinned to an exact version that must match the CI Docker image tag
   (`.github/workflows/playwright.yml`); bump both together.
 
