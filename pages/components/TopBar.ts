@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 /** Top bar (header) with the user menu, shown on every logged-in page. */
 export class TopBar {
@@ -16,7 +16,13 @@ export class TopBar {
   }
 
   async logout(): Promise<void> {
-    await this.userDropdown.click();
+    // On a slow load (seen once on WebKit) the first click can land before the Vue app has wired up the dropdown,
+    // so the menu never opens. Retry the click until the Logout item shows. Clicking an already-open menu would
+    // close it, so the retry only re-clicks while the item is still hidden.
+    await expect(async () => {
+      if (!(await this.logoutMenuItem.isVisible())) await this.userDropdown.click();
+      await expect(this.logoutMenuItem).toBeVisible({ timeout: 2_000 });
+    }).toPass({ timeout: 10_000 });
     await this.logoutMenuItem.click();
   }
 }
